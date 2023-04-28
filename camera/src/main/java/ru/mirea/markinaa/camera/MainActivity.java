@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private Uri imageUri;
     private Boolean isWork;
-    private int REQUEST_CODE_PERMISSION = 1888;
+    private int REQUEST_CODE_PERMISSION = 200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
         if	(cameraPermissionStatus	==	PackageManager.PERMISSION_GRANTED	&&
-                storagePermissionStatus
-                ==	PackageManager.PERMISSION_GRANTED)	{
+                storagePermissionStatus ==	PackageManager.PERMISSION_GRANTED)	{
             isWork	=	true;
         }	else	{
             ActivityCompat.requestPermissions(this,	new	String[]	{android.Manifest
@@ -89,8 +88,10 @@ public class MainActivity extends AppCompatActivity {
                 if	(isWork)	{
                     try	{
                         File	photoFile	=	createImageFile();
-                        String	authorities	=	getApplicationContext().getPackageName()	+	".fileprovider";
-                        imageUri	=	FileProvider.getUriForFile(MainActivity.this,	authorities,	photoFile);
+                        String	authorities	=	getApplicationContext().getPackageName()	+
+                                ".fileprovider";
+                        imageUri	=	FileProvider.getUriForFile(MainActivity.this,
+                                authorities,	photoFile);
                         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,	imageUri);
                         cameraActivityResultLauncher.launch(cameraIntent);
                     }	catch	(IOException	e)	{
